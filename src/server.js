@@ -17,10 +17,12 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"));
 
 // middlewares
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
-app.use(fileUpload())
 app.use("/public", express.static(path.join(__dirname, "public")))
 
 fs.readdir(path.join(__dirname, "routes"), (err, files) => {

@@ -32,6 +32,32 @@ img {
     display: block;
 }
 
+.profile-stats a.follow-link {
+    margin-top: 10px;
+    font-size: 16px;
+    text-decoration: none!important;
+    padding: 5px 10px;
+    background: #4d90fe;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.profile-stats a.unfollow-link {
+    margin-top: 10px;
+    font-size: 16px;
+    text-decoration: none!important;
+    padding: 5px 10px;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 2px;
+}
+
+.profile-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
 .container {
     max-width: 93.5rem;
     margin: 0 auto;
