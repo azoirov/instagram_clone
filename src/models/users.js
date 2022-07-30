@@ -14,7 +14,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
         min: 13,
-        max: 13
+        max: 13,
+        unique: true
     },
     password: {
         type: String,
@@ -54,3 +55,8 @@ const userSchema = new Schema({
 });
 
 module.exports = model("users", userSchema)
+
+// SSR - Server Side Rendering
+// RestAPI - JSON
+
+// SEO - search engine optimization
