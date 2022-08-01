@@ -29,10 +29,6 @@ const postSchema = new Schema({
             }
         ]
     },
-    ipAddress: {
-        type: String,
-        required: true
-    }
 }, {
     timestamps: true
 });
