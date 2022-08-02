@@ -26,7 +26,8 @@ const userSchema = new Schema({
         default: "/public/images/avatar.png"
     },
     bio: {
-        type: String
+        type: String,
+        max: 100
     },
     followers: {
         type: [

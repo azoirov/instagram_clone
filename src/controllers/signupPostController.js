@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
             sessionId: session._id
         });
 
-        res.cookie("token", token).redirect("/profile")
+        res.cookie("token", token).redirect(`/users/${user.username}`)
     } catch (e) {
         res.status(400).json({
             ok: false,
