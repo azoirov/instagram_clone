@@ -1,6 +1,9 @@
 
             <div class="status-wrapper">
-                <% for(let i = 0; i < 20; i++) { %>
-                    <%-include("story")%>
-                <% } %>
+                <% users.forEach(user => { %>
+                    <div class="status-card">
+                        <div class="profile-pic"><img src="<%=user.avatar%>" alt=""></div>
+                        <p class="username"><%=user.username%></p>
+                    </div>
+                <% }) %>
             </div>

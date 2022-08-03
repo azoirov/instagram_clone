@@ -22,7 +22,17 @@
             <%-include("partials/post")%>
         </div>
         <div class="right-col">
-            <%-include("partials/recommendations")%>
+            <div class="profile-card">
+                <div class="profile-pic">
+                    <img src="<%=user.avatar%>" alt="">
+                </div>
+                <div>
+                    <p class="username"><%=user.username%></p>
+                    <p class="sub-text"><%=user.fullName%></p>
+                </div>
+                <button class="action-btn">switch</button>
+            </div>
+<!--            <%-include("partials/recommendations")%>-->
         </div>
     </div>
 </section>

@@ -5,16 +5,23 @@ const signupPostController = require("../controllers/signupPostController");
 const loginPostController = require("../controllers/loginPostController");
 const profileGetController = require("../controllers/profileGetController");
 const avatarPostController = require("../controllers/avatarPostController");
+const checkCodeController = require("../controllers/checkCodeController");
+const sendCodeController = require("../controllers/sendCodeController");
 const editProfilePostController = require("../controllers/editProfilePostController");
+const searchController = require("../controllers/searchController");
 const followPostController = require("../controllers/followPostController");
 const unfollowPostController = require("../controllers/unfollowPostController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 
+router.get("/search", authMiddleware ,searchController)
+
 router.get("/login", loginGetController)
 router.get("/signup", signupGetController)
 
 router.post("/signup", signupPostController)
+router.post("/confirm", authMiddleware, checkCodeController);
+router.post("/send-code", authMiddleware, sendCodeController);
 router.post("/login", loginPostController)
 
 router.get("/:username", authMiddleware, profileGetController)

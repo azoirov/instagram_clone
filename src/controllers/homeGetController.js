@@ -1,4 +1,5 @@
 const posts = require("../models/posts");
+const users = require("../models/users");
 
 module.exports = async (req, res) => {
     try {
@@ -15,11 +16,26 @@ module.exports = async (req, res) => {
                 $unwind: {
                     path: "$user"
                 }
-            }
+            },
+            // {
+            //     $match: {
+            //         userId: { $ne: req.user._id }
+            //     }
+            // }
         ]);
 
+        const userList = await users.aggregate([
+            {
+                $match: {
+                    username: { $ne: req.user.username }
+                }
+            }
+        ])
+
         res.render("index", {
-            posts: postList
+            posts: postList,
+            users: userList,
+            user: req.user
         })
     } catch (e) {
         res.status(400).json({
