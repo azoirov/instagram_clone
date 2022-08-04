@@ -27,8 +27,43 @@
         </div>
         <div class="comment-wrapper">
             <img src="/public/images/smile.PNG" class="icon" alt="">
-            <input type="text" class="comment-box" placeholder="Add a comment">
-            <button class="comment-btn">post</button>
+                <input type="text" class="comment-box" id="commentText" placeholder="Add a comment">
+                <button class="comment-btn" data-post-id="<%=post._id%>" id="postCommentBtn">post</button>
         </div>
     </div>
+
 <% }) %>
+
+<script>
+    const commentPostBtns = document.querySelectorAll("#postCommentBtn")
+
+    commentPostBtns.forEach(btn => {
+        btn.addEventListener("click", async e => {
+            const commentText = e.target.previousElementSibling
+            const text = commentText.value;
+            if(text) {
+                const body = {
+                    text
+                };
+
+                const postId = e.target.dataset.postId;
+
+                let response = await fetch(`/posts/${postId}/comment`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body),
+                });
+
+                response = await response.json();
+
+                if(response.ok) {
+                    window.location.reload()
+                } else {
+                    alert(response.message)
+                }
+            }
+        })
+    })
+</script>
