@@ -1,3 +1,4 @@
+<% var isConfirmationCodeSent = false %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,6 +15,13 @@
 <header>
 
     <div class="container">
+
+        <% if(!user.isConfirmed) { %>
+            <div class="alert alert-warning d-flex justify-content-between mt-3" id="confirmationAlert" role="alert">
+                    <p>Your phone number was not confirmed</p>
+                    <button id="sendCode" class="btn btn-primary">Send confirmation code</button>
+            </div>
+        <% } %>
 
         <div class="profile">
 
@@ -164,6 +172,45 @@
 
 <script>
     const inputFile = document.querySelector("#avatar");
+    const sendCodeBtn = document.querySelector("#sendCode");
+
+    sendCodeBtn.addEventListener("click", async e => {
+        // console.log(isConfirmationCodeSent)
+        let response = await fetch('/users/send-code', {
+            method: "POST"
+        });
+        response = await response.json();
+        if(response.ok) {
+            const confirmationAlert = document.getElementById("confirmationAlert");
+            confirmationAlert.innerHTML = `<input type="text">
+                    <button id="confirm" class="btn btn-primary">Confirm</button>`
+            confirm()
+        }
+    })
+
+    function confirm() {
+        const confirmBtn = document.getElementById('confirm');
+        confirmBtn.addEventListener("click", async e => {
+            const code = e.target.previousElementSibling.value;
+            if(code) {
+                const body = JSON.stringify({
+                    code
+                });
+                let response = await fetch('/users/confirm', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body
+                });
+                response = await response.json();
+
+                if(response.ok) window.location.reload()
+                else alert(response.message)
+            }
+        })
+    }
+
 
     inputFile.addEventListener("change", async e => {
         const avatar = e.target.files[0];
