@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
         await sessions.findByIdAndUpdate(req.session._id, {
             code
         })
+        console.log(code)
         res.status(200).json({
             ok: true
         });
